@@ -3,6 +3,12 @@
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
+    "baseUrl": "src", // This must be specified if "paths" is.
+    "paths": {
+      "@providers/*": ["providers/*"],
+      "@components/*": ["components/*"],
+      "@styles/*": ["styles/*"],
+    },
     "skipLibCheck": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
