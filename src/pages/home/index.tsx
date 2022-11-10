@@ -1,12 +1,55 @@
 import Head from "next/head";
+import { Container, Input, Button, Text } from "@styles/index";
 
-import { Text } from "@styles/texts";
-import { Button } from "@styles/buttons";
-import { Container } from "@styles/stitches.config";
-import { HomeMain, HomeHeader } from "./styles";
+import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
+
 import { FaHeart } from "react-icons/fa";
+import { ResultWord } from "@components/ResultWord";
+import { WordsSection } from "./components/WordsSection";
+import { useRef, useState } from "react";
+import { getAPI } from "utils/getApi";
+
+interface dataAPI {
+  word: string;
+  text: string;
+  audio: string;
+  type: string;
+  phraseExample: string;
+}
 
 export default function Home() {
+  const [word, setWord] = useState<dataAPI>({
+    word: "",
+    text: "",
+    audio: "",
+    type: "",
+    phraseExample: "",
+  });
+
+  const inputSearchRef = useRef(null);
+
+  const handleAPI = async () => {
+    const response = await getAPI(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/word`
+    );
+
+    const responseJson = response.data[0];
+    const { word, phonetics, meanings } = responseJson;
+    const { partOfSpeech, definitions } = meanings[0];
+    const { definition } = definitions[0];
+    const [text, audio] = phonetics;
+
+    setWord({
+      word: word,
+      text: text.text,
+      audio: audio.audio,
+      type: partOfSpeech,
+      phraseExample: definition,
+    });
+
+    console.log(audio.audio);
+  };
+
   return (
     <>
       <Head>
@@ -25,6 +68,29 @@ export default function Home() {
               Favorites
             </Button>
           </HomeHeader>
+          <HomeFormSearch>
+            <Input
+              placeholder="Type the word here..."
+              css={{ width: "85%" }}
+              ref={inputSearchRef}
+            />
+            <Button
+              size="lg"
+              type="brand"
+              css={{ width: "15%" }}
+              onClick={handleAPI}
+            >
+              Search
+            </Button>
+          </HomeFormSearch>
+          <ResultWord
+            world={word?.word}
+            text={word?.text}
+            audio={word?.audio}
+            type={word?.type}
+            phraseExample={word?.phraseExample}
+          />
+          <WordsSection />
         </Container>
       </HomeMain>
     </>

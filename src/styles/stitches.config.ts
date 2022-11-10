@@ -72,5 +72,37 @@ export const Container = styled("div", {
   width: "42rem",
   maxWidth: "100%",
   paddingInline: "1rem",
-  marginInline: "auto"
+  marginInline: "auto",
+});
+
+export const Box = styled("div", {});
+export const Flex = styled("div", {
+  display: "flex",
+  variants: {
+    align: {
+      start: {
+        alignItems: "flex-start",
+      },
+      center: {
+        alignItems: "center",
+      },
+      end: {
+        alignItems: "flex-end",
+      },
+    },
+    justify: {
+      start: {
+        justifyContent: "flex-start",
+      },
+      center: {
+        justifyContent: "flex-center",
+      },
+      end: {
+        justifyContent: "flex-end",
+      },
+      between: {
+        justifyContent: "space-between",
+      },
+    },
+  },
 });

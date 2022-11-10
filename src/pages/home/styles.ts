@@ -11,3 +11,9 @@ export const HomeHeader = styled("main", {
   alignItems: "center",
   paddingTop: "2.75rem"
 });
+
+export const HomeFormSearch = styled("div", {
+  display: "flex",
+  gap: "1rem",
+  padding: "2rem 0"
+})

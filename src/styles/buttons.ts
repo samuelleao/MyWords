@@ -22,6 +22,14 @@ export const Button = styled("button", {
           borderColor: "$gray600",
         },
       },
+      brand: {
+        backgroundColor: "$brand900",
+        borderColor: "$brand900",
+        "&:hover": {
+          backgroundColor: "$brand800",
+          borderColor: "$brand800",
+        },
+      },
     },
     size: {
       base: {
@@ -37,8 +45,8 @@ export const Button = styled("button", {
       true: {
         display: "flex",
         alignItems: "center",
-        gap: "0.875rem"
-      }
-    }
+        gap: "0.875rem",
+      },
+    },
   },
 });
