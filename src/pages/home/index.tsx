@@ -1,6 +1,10 @@
-import { Button } from "@styles/buttons";
 import Head from "next/head";
-import { HomeMain } from "./styles";
+
+import { Text } from "@styles/texts";
+import { Button } from "@styles/buttons";
+import { Container } from "@styles/stitches.config";
+import { HomeMain, HomeHeader } from "./styles";
+import { FaHeart } from "react-icons/fa";
 
 export default function Home() {
   return (
@@ -11,7 +15,17 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <HomeMain>
-        <Button>Text Button</Button>
+        <Container>
+          <HomeHeader>
+            <Text size="lg" weight="semibold">
+              MyWords
+            </Text>
+            <Button withIcon>
+              <FaHeart />
+              Favorites
+            </Button>
+          </HomeHeader>
+        </Container>
       </HomeMain>
     </>
   );

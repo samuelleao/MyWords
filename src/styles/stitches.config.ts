@@ -67,3 +67,10 @@ export const GlobalStyles = globalCss({
     fontFamily: inter.style.fontFamily,
   },
 });
+
+export const Container = styled("div", {
+  width: "42rem",
+  maxWidth: "100%",
+  paddingInline: "1rem",
+  marginInline: "auto"
+});

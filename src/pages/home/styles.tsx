@@ -4,3 +4,10 @@ export const HomeMain = styled("main", {
   backgroundColor: "$gray900",
   minHeight: "100vh",
 });
+
+export const HomeHeader = styled("main", {
+  display: "flex",
+  justifyContent: "space-between",
+  alignItems: "center",
+  paddingTop: "2.75rem"
+});

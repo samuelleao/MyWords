@@ -7,6 +7,7 @@ export const Button = styled("button", {
   borderRadius: "$1",
   borderWidth: "0.063rem",
   borderStyle: "solid",
+  cursor: "pointer",
   defaultVariants: {
     type: "grey",
     size: "base",
@@ -32,5 +33,12 @@ export const Button = styled("button", {
         fontSize: "$sm",
       },
     },
+    withIcon: {
+      true: {
+        display: "flex",
+        alignItems: "center",
+        gap: "0.875rem"
+      }
+    }
   },
 });
