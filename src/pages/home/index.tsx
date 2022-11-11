@@ -26,11 +26,13 @@ export default function Home() {
     phraseExample: "",
   });
 
-  const inputSearchRef = useRef(null);
+  const inputSearchRef = useRef<HTMLInputElement>(null);
 
   const handleAPI = async () => {
+    const wordInput = inputSearchRef.current?.value
+    
     const response = await getAPI(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/word`
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${wordInput}`
     );
 
     const responseJson = response.data[0];

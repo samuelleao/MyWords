@@ -18,4 +18,7 @@ export const Input = styled("input", {
     outlineColor: "$gray50",
     color: "$gray50",
   },
+  "&:valid":{
+    color: "$gray50"
+  } 
 });
