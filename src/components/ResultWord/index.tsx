@@ -53,9 +53,12 @@ export const ResultWord = ({
           <Button aria-label="Like">
             <FaHeart />
           </Button>
-          <Button aria-label="Hear" onClick={handleAudio}>
-            <FaVolumeUp />
-          </Button>
+      
+          {audio && (
+            <Button aria-label="Hear" onClick={handleAudio}>
+              <FaVolumeUp />
+            </Button>
+          )}
         </Flex>
       </Flex>
       <Text

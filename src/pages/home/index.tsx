@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Container, Input, Button, Text } from "@styles/index";
+import { Container, Input, Button, Text, Box } from "@styles/index";
 
 import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
 
@@ -8,6 +8,7 @@ import { ResultWord } from "@components/ResultWord";
 import { WordsSection } from "./components/WordsSection";
 import { useRef, useState } from "react";
 import { getAPI } from "utils/getApi";
+import { Toast } from "@components/Toast";
 
 interface dataAPI {
   word: string;
@@ -26,30 +27,35 @@ export default function Home() {
     phraseExample: "",
   });
 
+  const [error, setError] = useState(false);
+
   const inputSearchRef = useRef<HTMLInputElement>(null);
 
-  const handleAPI = async () => {
-    const wordInput = inputSearchRef.current?.value
-    
-    const response = await getAPI(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${wordInput}`
-    );
+  const handleAPI = async (wordWriter: string) => {
+    try {
+      const response = await getAPI<any>(
+        `https://api.dictionaryapi.dev/api/v2/entries/en/${wordWriter}`
+      );
 
-    const responseJson = response.data[0];
-    const { word, phonetics, meanings } = responseJson;
-    const { partOfSpeech, definitions } = meanings[0];
-    const { definition } = definitions[0];
-    const [text, audio] = phonetics;
+      const responseJson = response.data[0];
+      const { word, phonetics, meanings } = responseJson;
+      const { partOfSpeech, definitions } = meanings[0];
+      const { definition } = definitions[0];
+      const [text, audio] = phonetics;
 
-    setWord({
-      word: word,
-      text: text.text,
-      audio: audio.audio,
-      type: partOfSpeech,
-      phraseExample: definition,
-    });
+      setWord({
+        word: word,
+        text: text?.text,
+        audio: audio?.audio,
+        type: partOfSpeech,
+        phraseExample: definition,
+      });
+      setError(false);
+    } catch (e) {
+      setError(true);
+    }
 
-    console.log(audio.audio);
+    return null;
   };
 
   return (
@@ -61,6 +67,8 @@ export default function Home() {
       </Head>
       <HomeMain>
         <Container>
+           <Toast control={error} setControl={setError} title="Ops! Word not found" description="Can't find that word in our database" />
+
           <HomeHeader>
             <Text size="lg" weight="semibold">
               MyWords
@@ -80,7 +88,7 @@ export default function Home() {
               size="lg"
               type="brand"
               css={{ width: "15%" }}
-              onClick={handleAPI}
+              onClick={() => handleAPI(inputSearchRef?.current.value)}
             >
               Search
             </Button>
@@ -92,7 +100,7 @@ export default function Home() {
             type={word?.type}
             phraseExample={word?.phraseExample}
           />
-          <WordsSection />
+          <WordsSection handleAPIProps={handleAPI} />
         </Container>
       </HomeMain>
     </>

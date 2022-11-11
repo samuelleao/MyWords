@@ -1,5 +1,5 @@
 import axios from "axios";
 
-export const getAPI = (url: string) => {
-  return axios.get(url);
+export const getAPI = <T = unknown>(url: string) => {
+  return axios.get<T | null>(url);
 };

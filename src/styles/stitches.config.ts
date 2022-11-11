@@ -3,7 +3,7 @@ import { Inter } from "@next/font/google";
 
 const inter = Inter();
 
-export const { styled, globalCss, getCssText } = createStitches({
+export const { styled, globalCss, getCssText, css } = createStitches({
   theme: {
     colors: {
       brand900: "#4338CA",
