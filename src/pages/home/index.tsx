@@ -50,9 +50,9 @@ export default function Home() {
         type: partOfSpeech,
         phraseExample: definition,
       });
-      setError(false);
-    } catch (e) {
+    } catch (error) {
       setError(true);
+      throw (error as Error).message;
     }
 
     return null;
@@ -67,7 +67,12 @@ export default function Home() {
       </Head>
       <HomeMain>
         <Container>
-           <Toast control={error} setControl={setError} title="Ops! Word not found" description="Can't find that word in our database" />
+          <Toast
+            control={error}
+            setControl={setError}
+            title="Ops! Word not found"
+            description="Can't find that word in our database"
+          />
 
           <HomeHeader>
             <Text size="lg" weight="semibold">
