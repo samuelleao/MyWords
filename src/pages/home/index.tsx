@@ -6,7 +6,7 @@ import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
 import { FaHeart } from "react-icons/fa";
 import { ResultWord } from "@components/ResultWord";
 import { WordsSection } from "./components/WordsSection";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getAPI } from "utils/getApi";
 import { Toast } from "@components/Toast";
 
@@ -50,6 +50,9 @@ export default function Home() {
         type: partOfSpeech,
         phraseExample: definition,
       });
+
+      window.scrollTo(0,0)
+      setError(false);
     } catch (error) {
       setError(true);
       throw (error as Error).message;
@@ -57,6 +60,10 @@ export default function Home() {
 
     return null;
   };
+
+  useEffect(()=>{
+    handleAPI("word")
+  }, [])
 
   return (
     <>

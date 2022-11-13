@@ -14,7 +14,6 @@ export const ResultWordBlockquote = styled("blockquote", {
   padding: "0 1rem",
   backgroundColor: "$gray900",
   borderLeft: "0.188rem solid $brand900",
-  height: "2.5rem",
   margin: 0,
   display: "flex",
   alignItems: "center",

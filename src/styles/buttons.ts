@@ -8,6 +8,10 @@ export const Button = styled("button", {
   borderWidth: "0.063rem",
   borderStyle: "solid",
   cursor: "pointer",
+  "&:focus-visible": {
+    outlineColor: "$gray50",
+    color: "$gray50",
+  },
   defaultVariants: {
     type: "grey",
     size: "base",

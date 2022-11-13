@@ -60,10 +60,13 @@ export const { styled, globalCss, getCssText, css } = createStitches({
 });
 
 export const GlobalStyles = globalCss({
-  body: {
+  "*": {
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
+    scrollBehavior: "smooth"
+  },
+  body: {
     fontFamily: inter.style.fontFamily,
   },
 });

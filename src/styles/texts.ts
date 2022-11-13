@@ -2,6 +2,7 @@ import { styled } from "@styles/stitches.config";
 
 export const Text = styled("p", {
   color: "$gray50",
+  lineHeight: "150%",
   defaultVariants: {
     size: "sm",
     weight: "regular"
