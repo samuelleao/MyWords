@@ -1,5 +1,4 @@
-import { styled, css } from "@styles/stitches.config";
-
+import { styled } from "@styles/stitches.config";
 
 export const HomeMain = styled("main", {
   backgroundColor: "$gray900",

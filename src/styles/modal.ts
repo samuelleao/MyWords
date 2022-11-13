@@ -33,7 +33,7 @@ export const Modal = styled(Dialog.Content, {
   width: "90vw",
   maxWidth: "450px",
   maxHeight: "85vh",
-  padding: 25,
+  padding: "1rem",
   animation: `${contentShow} 150ms cubic-bezier(0.16, 1, 0.3, 1)`,
   "&:focus": { outline: "none" },
 });

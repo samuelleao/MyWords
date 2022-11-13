@@ -1,8 +1,7 @@
 import { Word, WordLoading } from "@components/Word";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { getAPI } from "utils/getApi";
 import { WordsSection as WordsSectionWrapper } from "./styles";
-import { Text } from "@styles/index";
 
 interface WordsSectionProps {
   handleAPIProps: any;
