@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { Container, Input, Button, Text, Box } from "@styles/index";
+import * as Dialog from "@radix-ui/react-dialog";
 
 import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
 
@@ -9,6 +10,12 @@ import { WordsSection } from "./components/WordsSection";
 import { useEffect, useRef, useState } from "react";
 import { getAPI } from "utils/getApi";
 import { Toast } from "@components/Toast";
+import {
+  DialogDescription,
+  Modal,
+  ModalHeader,
+  ModalOverlay,
+} from "@styles/modal";
 
 interface dataAPI {
   word: string;
@@ -51,7 +58,7 @@ export default function Home() {
         phraseExample: definition,
       });
 
-      window.scrollTo(0,0)
+      window.scrollTo(0, 0);
       setError(false);
     } catch (error) {
       setError(true);
@@ -61,9 +68,9 @@ export default function Home() {
     return null;
   };
 
-  useEffect(()=>{
-    handleAPI("word")
-  }, [])
+  useEffect(() => {
+    handleAPI("word");
+  }, []);
 
   return (
     <>
@@ -85,10 +92,30 @@ export default function Home() {
             <Text size="lg" weight="semibold">
               MyWords
             </Text>
-            <Button withIcon>
-              <FaHeart />
-              Favorites
-            </Button>
+            <Dialog.Root>
+              <Dialog.Trigger asChild>
+                <Button withIcon type="grey">
+                  <FaHeart />
+                  Favorites
+                </Button>
+              </Dialog.Trigger>
+              <Dialog.Portal>
+                <ModalOverlay />
+                <Modal>
+                  <ModalHeader>
+                    <Dialog.Title asChild>
+                      <Text>Favorites</Text>
+                    </Dialog.Title>
+                    <DialogDescription>
+                      Here are your favorites words
+                    </DialogDescription>
+                    <Dialog.Close asChild>
+                      <Button type="grey">X</Button>
+                    </Dialog.Close>
+                  </ModalHeader>
+                </Modal>
+              </Dialog.Portal>
+            </Dialog.Root>
           </HomeHeader>
           <HomeFormSearch>
             <Input
