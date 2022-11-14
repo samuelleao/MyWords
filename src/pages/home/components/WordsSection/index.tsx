@@ -1,16 +1,13 @@
 import { Word, WordLoading } from "@components/Word";
-import { useEffect, useState } from "react";
+import { FavoritesWordsContext } from "@providers/wordsProvider";
+import { useContext, useEffect, useState } from "react";
 import { getAPI } from "utils/getApi";
 import { WordsSection as WordsSectionWrapper } from "./styles";
 
-interface WordsSectionProps {
-  handleAPIProps: any;
-}
-
-export const WordsSection = ({
-  handleAPIProps,
-}: WordsSectionProps): JSX.Element => {
+export const WordsSection = (): JSX.Element => {
   const [words, setWords] = useState<string[]>([]);
+
+  const { getAPIWord } = useContext(FavoritesWordsContext);
 
   const [numberPageAPI, setNumberPageAPI] = useState(1);
 
@@ -47,7 +44,7 @@ export const WordsSection = ({
         <Word
           key={index}
           onClick={(el) => {
-            handleAPIProps(String(el.target.outerText), word.id);
+            getAPIWord(String(el.target.outerText), word.id);
           }}
         >
           {word.content}

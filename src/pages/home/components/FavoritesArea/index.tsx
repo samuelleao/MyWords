@@ -11,9 +11,10 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@styles/modal";
-import { useState } from "react";
-import { getAPI, deleteAPI } from "utils/getApi";
+import { useContext } from "react";
+
 import { Toast } from "@components/Toast";
+import { FavoritesWordsContext } from "@providers/wordsProvider";
 
 interface APIType {
   content: string;
@@ -21,30 +22,14 @@ interface APIType {
 }
 
 export const FavoritesArea = (): JSX.Element => {
-  const [favorites, setFavorites] = useState<APIType[]>([]);
-  const [sucess, setSucess] = useState(false);
-
-  const handleFavorites = async () => {
-    try {
-      const response = await getAPI<any>(
-        `http://localhost:3004/wordsFavorites`
-      );
-      setFavorites(response.data);
-    } catch (error) {
-      throw (error as Error).message;
-    }
-  };
-
-  const favoriteRemove = async (id: number) => {
-    try {
-      await deleteAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
-      setSucess(true);
-      handleFavorites();
-    } catch (error) {
-      setSucess(false);
-      throw (error as Error).message;
-    }
-  };
+  const {
+    getFavorites,
+    sucess,
+    favorites,
+    setSucess,
+    favoriteRemove,
+    getAPIWord,
+  } = useContext(FavoritesWordsContext);
 
   return (
     <>
@@ -56,7 +41,7 @@ export const FavoritesArea = (): JSX.Element => {
       />
       <Dialog.Root>
         <Dialog.Trigger asChild>
-          <Button onClick={handleFavorites} withIcon type="grey">
+          <Button onClick={getFavorites} withIcon type="grey">
             <FaHeart />
             Favorites
           </Button>
@@ -87,11 +72,18 @@ export const FavoritesArea = (): JSX.Element => {
             </ModalHeader>
             <FavoritesWordsListWrapper>
               {favorites.map((favoriteWord: APIType) => (
-                <FavoritesWordsListItem key={favoriteWord.id}>
+                <FavoritesWordsListItem
+                  key={favoriteWord.id}
+                  onClick={(el) =>
+                    getAPIWord(String(el.target.outerText), favoriteWord.id)
+                  }
+                >
                   <Text>{favoriteWord.content}</Text>
                   <Button
                     css={{ backgroundColor: "transparent" }}
-                    onClick={() => favoriteRemove(favoriteWord.id)}
+                    onClick={(el) => {
+                      favoriteRemove(favoriteWord.id);
+                    }}
                   >
                     <FaTrash />
                   </Button>

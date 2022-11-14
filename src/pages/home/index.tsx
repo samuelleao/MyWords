@@ -6,71 +6,19 @@ import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
 
 import { ResultWord } from "@components/ResultWord";
 import { WordsSection } from "./components/WordsSection";
-import { useEffect, useRef, useState } from "react";
-import { getAPI } from "utils/getApi";
+import { useContext, useEffect, useRef } from "react";
 import { Toast } from "@components/Toast";
 import { FavoritesArea } from "./components/FavoritesArea";
-
-interface dataAPI {
-  word: string;
-  text: string;
-  audio: string;
-  type: string;
-  phraseExample: string;
-  id: any;
-}
+import { FavoritesWordsContext } from "@providers/wordsProvider";
 
 export default function Home() {
-  const [word, setWord] = useState<dataAPI>({
-    word: "",
-    text: "",
-    audio: "",
-    type: "",
-    phraseExample: "",
-    id: "",
-  });
-
-  const [error, setError] = useState(false);
 
   const inputSearchRef = useRef<HTMLInputElement>(null);
 
-  const handleAPI = async (wordWriter: string, id: any = null) => {
-    if (id == null) {
-      id = Date.now() + Math.random();
-    }
-
-    try {
-      const response = await getAPI<any>(
-        `https://api.dictionaryapi.dev/api/v2/entries/en/${wordWriter}`
-      );
-
-      const responseJson = response.data[0];
-      const { word, phonetics, meanings } = responseJson;
-      const { partOfSpeech, definitions } = meanings[0];
-      const { definition } = definitions[0];
-      const [text, audio] = phonetics;
-
-      setWord({
-        word: word,
-        text: text?.text,
-        audio: audio?.audio,
-        type: partOfSpeech,
-        phraseExample: definition,
-        id: id,
-      });
-
-      window.scrollTo(0, 0);
-      setError(false);
-    } catch (error) {
-      setError(true);
-      throw (error as Error).message;
-    }
-
-    return null;
-  };
+  const { getAPIWord, error, word, setError } = useContext(FavoritesWordsContext)
 
   useEffect(() => {
-    handleAPI("word", 1668384142161.6328);
+    getAPIWord("word", 1668384142161.6328);
   }, []);
 
   return (
@@ -105,7 +53,7 @@ export default function Home() {
               size="lg"
               type="brand"
               css={{ width: "15%" }}
-              onClick={() => handleAPI(inputSearchRef?.current.value)}
+              onClick={() => getAPIWord(inputSearchRef?.current.value)}
             >
               Search
             </Button>
@@ -118,7 +66,7 @@ export default function Home() {
             id={word.id}
             phraseExample={word?.phraseExample}
           />
-          <WordsSection handleAPIProps={handleAPI} />
+          <WordsSection />
         </Container>
       </HomeMain>
     </>
