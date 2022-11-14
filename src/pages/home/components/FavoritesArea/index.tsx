@@ -74,8 +74,8 @@ export const FavoritesArea = (): JSX.Element => {
               {favorites.map((favoriteWord: APIType) => (
                 <FavoritesWordsListItem
                   key={favoriteWord.id}
-                  onClick={(el) =>
-                    getAPIWord(String(el.target.outerText), favoriteWord.id)
+                  onClick={(event) =>
+                    getAPIWord(String(event.target.outerText), favoriteWord.id)
                   }
                 >
                   <Text>{favoriteWord.content}</Text>
