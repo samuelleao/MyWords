@@ -35,6 +35,21 @@ export const Button = styled("button", {
         },
       },
     },
+    isLiked: {
+      true: {
+        backgroundColor: "$like700",
+        color: "$gray50"
+      }
+    },
+    like: {
+      true: {
+        backgroundColor: "$like900",
+        color: "$gray50", 
+        "&:hover": {
+          backgroundColor: "$like800",
+        }
+      }
+    },
     size: {
       base: {
         height: "2rem",

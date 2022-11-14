@@ -17,6 +17,7 @@ interface dataAPI {
   audio: string;
   type: string;
   phraseExample: string;
+  id: any;
 }
 
 export default function Home() {
@@ -26,13 +27,18 @@ export default function Home() {
     audio: "",
     type: "",
     phraseExample: "",
+    id: "",
   });
 
   const [error, setError] = useState(false);
 
   const inputSearchRef = useRef<HTMLInputElement>(null);
 
-  const handleAPI = async (wordWriter: string) => {
+  const handleAPI = async (wordWriter: string, id: any = null) => {
+    if (id == null) {
+      id = Date.now() + Math.random();
+    }
+
     try {
       const response = await getAPI<any>(
         `https://api.dictionaryapi.dev/api/v2/entries/en/${wordWriter}`
@@ -50,6 +56,7 @@ export default function Home() {
         audio: audio?.audio,
         type: partOfSpeech,
         phraseExample: definition,
+        id: id,
       });
 
       window.scrollTo(0, 0);
@@ -63,7 +70,7 @@ export default function Home() {
   };
 
   useEffect(() => {
-    handleAPI("word");
+    handleAPI("word", 1668384142161.6328);
   }, []);
 
   return (
@@ -108,6 +115,7 @@ export default function Home() {
             text={word?.text}
             audio={word?.audio}
             type={word?.type}
+            id={word.id}
             phraseExample={word?.phraseExample}
           />
           <WordsSection handleAPIProps={handleAPI} />

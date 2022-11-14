@@ -18,6 +18,9 @@ export const { styled, globalCss, getCssText, css } = createStitches({
       gray200: "#E4E4E7",
       gray100: "#F4F4F5",
       gray50: "#FAFAFA",
+      like900: "#2C0818",
+      like800: "#581030",
+      like700: "#BE185D",
     },
     fontSizes: {
       xs: "0.75rem",

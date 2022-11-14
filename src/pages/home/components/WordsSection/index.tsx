@@ -7,24 +7,26 @@ interface WordsSectionProps {
   handleAPIProps: any;
 }
 
-export const WordsSection = ({ handleAPIProps }: WordsSectionProps): JSX.Element => {
+export const WordsSection = ({
+  handleAPIProps,
+}: WordsSectionProps): JSX.Element => {
   const [words, setWords] = useState<string[]>([]);
 
   const [numberPageAPI, setNumberPageAPI] = useState(1);
 
   const handleAPI = async (numberAPI: number) => {
     const response: any = await getAPI(
-      `https://random-word-api.herokuapp.com/word?number=${numberAPI}&req=${numberPageAPI}&lang=en`
+      `http://localhost:3004/words?_page=${numberPageAPI}&_limit=${numberAPI}`
     );
 
     setWords((current) => current?.concat(response.data));
   };
 
   useEffect(() => {
-    handleAPI(40);
+    handleAPI(20);
   }, []);
 
-  useEffect(() => {
+  /* useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
         handleAPI(4);
@@ -33,11 +35,11 @@ export const WordsSection = ({ handleAPIProps }: WordsSectionProps): JSX.Element
     });
 
     const element = document.querySelector("#loading");
-    
+
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, []);
+  }, []); */
 
   return (
     <WordsSectionWrapper>
@@ -45,10 +47,10 @@ export const WordsSection = ({ handleAPIProps }: WordsSectionProps): JSX.Element
         <Word
           key={index}
           onClick={(el) => {
-            handleAPIProps(String(el.target.outerText));
+            handleAPIProps(String(el.target.outerText), word.id);
           }}
         >
-          {word}
+          {word.content}
         </Word>
       ))}
 

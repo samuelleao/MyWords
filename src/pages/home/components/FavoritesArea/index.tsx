@@ -26,7 +26,9 @@ export const FavoritesArea = (): JSX.Element => {
 
   const handleFavorites = async () => {
     try {
-      const response = await getAPI<any>(`http://localhost:3004/words`);
+      const response = await getAPI<any>(
+        `http://localhost:3004/wordsFavorites`
+      );
       setFavorites(response.data);
     } catch (error) {
       throw (error as Error).message;
@@ -35,7 +37,7 @@ export const FavoritesArea = (): JSX.Element => {
 
   const favoriteRemove = async (id: number) => {
     try {
-      await deleteAPI<any>(`http://localhost:3004/words/${id}`);
+      await deleteAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
       setSucess(true);
       handleFavorites();
     } catch (error) {

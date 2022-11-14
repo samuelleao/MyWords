@@ -11,7 +11,7 @@ export const ResultWord = styled("section", {
 
 export const ResultWordBlockquote = styled("blockquote", {
   appearance: "none",
-  padding: "0 1rem",
+  padding: "1rem",
   backgroundColor: "$gray900",
   borderLeft: "0.188rem solid $brand900",
   margin: 0,
