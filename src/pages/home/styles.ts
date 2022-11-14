@@ -16,4 +16,5 @@ export const HomeFormSearch = styled("div", {
   display: "flex",
   gap: "1rem",
   padding: "2rem 0",
+  "@bp1": { flexDirection: "column"}
 });

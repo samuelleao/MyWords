@@ -60,6 +60,10 @@ export const { styled, globalCss, getCssText, css } = createStitches({
       marginRight: value,
     }),
   },
+  media: {
+    bp1: '(max-width: 768px)',
+    bp2: '(min-width: 600px)',
+  },
 });
 
 export const GlobalStyles = globalCss({

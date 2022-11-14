@@ -11,22 +11,22 @@ export const WordsSection = (): JSX.Element => {
 
   const [numberPageAPI, setNumberPageAPI] = useState(1);
 
-  const handleAPI = async (numberAPI: number) => {
+  const handleAPI = async () => {
     const response: any = await getAPI(
-      `http://localhost:3004/words?_page=${numberPageAPI}&_limit=${numberAPI}`
+      `http://localhost:3004/words?_page=${numberPageAPI}&_limit=12`
     );
 
     setWords((current) => current?.concat(response.data));
   };
 
   useEffect(() => {
-    handleAPI(20);
+    handleAPI();
   }, []);
 
-  /* useEffect(() => {
+  useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
-        handleAPI(4);
+        handleAPI();
         setNumberPageAPI((current) => current + 1);
       }
     });
@@ -36,9 +36,10 @@ export const WordsSection = (): JSX.Element => {
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, []); */
+  }, []); 
 
   return (
+    <>
     <WordsSectionWrapper>
       {words?.map((word, index) => (
         <Word
@@ -54,8 +55,9 @@ export const WordsSection = (): JSX.Element => {
       {Array.from({ length: 4 }).map((el, index) => (
         <WordLoading key={index} />
       ))}
-
-      <div id="loading"></div>
     </WordsSectionWrapper>
+
+<div id="loading"></div>
+</>
   );
 };

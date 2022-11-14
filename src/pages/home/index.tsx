@@ -46,13 +46,13 @@ export default function Home() {
           <HomeFormSearch>
             <Input
               placeholder="Type the word here..."
-              css={{ width: "85%" }}
+              css={{ width: "85%", "@bp1": { width: "100%"} }}
               ref={inputSearchRef}
             />
             <Button
               size="lg"
               type="brand"
-              css={{ width: "15%" }}
+              css={{ width: "15%", "@bp1": { width: "100%"} }}
               onClick={() => getAPIWord(inputSearchRef?.current.value)}
             >
               Search
