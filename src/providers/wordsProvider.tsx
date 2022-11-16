@@ -119,6 +119,7 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
       });
       window.scrollTo(0, 0);
       setError(false);
+      handleFavorites(id);
     } catch (error) {
       setError(true);
       throw (error as Error).message;

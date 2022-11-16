@@ -11,10 +11,11 @@ import {
   ModalHeader,
   ModalOverlay,
 } from "@styles/modal";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 import { Toast } from "@components/Toast";
 import { FavoritesWordsContext } from "@providers/wordsProvider";
+import { useRef } from "react";
 
 interface APIType {
   content: string;
@@ -31,6 +32,8 @@ export const FavoritesArea = (): JSX.Element => {
     getAPIWord,
   } = useContext(FavoritesWordsContext);
 
+  const [open, setOpen] = useState(false);
+
   return (
     <>
       <Toast
@@ -39,9 +42,9 @@ export const FavoritesArea = (): JSX.Element => {
         title="Yes! Word Removed"
         description="Your favorite word was removed with sucess"
       />
-      <Dialog.Root>
+      <Dialog.Root open={open} onOpenChange={setOpen}>
         <Dialog.Trigger asChild>
-          <Button as="span" onClick={getFavorites} withIcon type="grey">
+          <Button onClick={getFavorites} withIcon type="grey">
             <FaHeart />
             Favorites
           </Button>
@@ -72,18 +75,35 @@ export const FavoritesArea = (): JSX.Element => {
             </ModalHeader>
             <FavoritesWordsListWrapper>
               {favorites.map((favoriteWord: APIType) => (
-                <FavoritesWordsListItem
-                  tabIndex={0}
-                  key={favoriteWord.id}
-                  // onClick={(event) =>
-                  //   getAPIWord(String(event.target.outerText), favoriteWord.id)
-                  // }
-                >
-                  <Text>{favoriteWord.content}</Text>
+                <FavoritesWordsListItem key={favoriteWord.id}>
+                  <Text
+                    tabIndex={0}
+                    as="a"
+                    onKeyPress={(event) =>
+                      getAPIWord(
+                        String(event.target.outerText),
+                        favoriteWord.id
+                      ).then(()=>{
+                        setOpen(!open)
+                      })
+                    }
+                    onClick={(event) =>
+                      getAPIWord(
+                        String(event.target.outerText),
+                        favoriteWord.id
+                      ).then(()=>{
+                        setOpen(!open)
+                      })
+                    }
+                  >
+                    {favoriteWord.content}
+                  </Text>
                   <Button
                     css={{ backgroundColor: "transparent" }}
                     onClick={(el) => {
-                      favoriteRemove(favoriteWord.id);
+                      favoriteRemove(favoriteWord.id).then(()=>{
+                        setOpen(!open)
+                      });
                     }}
                   >
                     <FaTrash />
