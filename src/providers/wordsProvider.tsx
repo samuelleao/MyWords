@@ -22,7 +22,7 @@ interface dataAPI {
 }
 
 const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
-  const [isLiked, setIsLiked] = useState();
+  const [isLiked, setIsLiked] = useState<boolean>();
   const [identify, setIdentify] = useState<number>();
   const [favorites, setFavorites] = useState<APIFavoritesType[]>([]);
   const [removedWordsucess, setRemovedWordSucess] = useState(false);
@@ -51,10 +51,8 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
       }else{
         setIsLiked(true);
       }
-     
     } catch (error) {
       setIsLiked(false);
-      console.log("entrou");
       throw (error as Error).message;
     }
   };
