@@ -26,6 +26,7 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
   const [identify, setIdentify] = useState<number>();
   const [favorites, setFavorites] = useState<APIFavoritesType[]>([]);
   const [removedWordsucess, setRemovedWordSucess] = useState(false);
+  const [sucesssAddFavorite, setSucesssAddFavorite] = useState(false);
 
   const [wordCurrent, setWordCurrent] = useState<dataAPI>({
     word: "",
@@ -65,7 +66,9 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
         content: content,
       });
       handleFavorites(identify);
+      setSucesssAddFavorite(true)
     } catch (error) {
+      setSucesssAddFavorite(false)
       throw (error as Error).message;
     }
   };
@@ -143,6 +146,7 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
         error,
         setError,
         wordCurrent,
+        sucesssAddFavorite, setSucesssAddFavorite
       }}
     >
       {children}

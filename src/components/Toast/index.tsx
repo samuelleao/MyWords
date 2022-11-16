@@ -21,7 +21,7 @@ export const Toast = ({
     <ToastRadix.Provider duration={duration} swipeDirection="right">
       <ToastRadix.Root asChild open={control} onOpenChange={setControl}>
         <NotFoundWord>
-          <Box>
+          <Box css={{display: "flex", flexDirection: "column", gap: "0.5rem"}}>
             <ToastRadix.Title>
               <Text size="sm" weight="bold" css={{ color: "$gray50" }}>
                 {title}

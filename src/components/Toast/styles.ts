@@ -21,6 +21,7 @@ export const NotFoundWord = styled("ol", {
   borderRadius: "var(--radii-1)",
   listStyle: "none",
   display: "flex",
+  gap: "0.4rem",
   width: "25rem",
   justifyContent: "space-between",
   "&[data-state='open']": {
