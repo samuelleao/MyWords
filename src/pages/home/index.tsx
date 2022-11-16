@@ -6,20 +6,17 @@ import { HomeMain, HomeHeader, HomeFormSearch } from "./styles";
 
 import { ResultWord } from "@components/ResultWord";
 import { WordsSection } from "./components/WordsSection";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { Toast } from "@components/Toast";
 import { FavoritesArea } from "./components/FavoritesArea";
 import { FavoritesWordsContext } from "@providers/wordsProvider";
 
 export default function Home() {
-
   const inputSearchRef = useRef<HTMLInputElement>(null);
 
-  const { getAPIWord, error, word, setError } = useContext(FavoritesWordsContext)
-
-  useEffect(() => {
-    getAPIWord("word", 1668384142161.6328);
-  }, []);
+  const { getAPIWord, error, wordCurrent, setError } = useContext(
+    FavoritesWordsContext
+  );
 
   return (
     <>
@@ -46,25 +43,25 @@ export default function Home() {
           <HomeFormSearch>
             <Input
               placeholder="Type the word here..."
-              css={{ width: "85%", "@bp1": { width: "100%"} }}
+              css={{ width: "85%", "@bp1": { width: "100%" } }}
               ref={inputSearchRef}
             />
             <Button
               size="lg"
               type="brand"
-              css={{ width: "15%", "@bp1": { width: "100%"} }}
+              css={{ width: "15%", "@bp1": { width: "100%" } }}
               onClick={() => getAPIWord(inputSearchRef?.current.value)}
             >
               Search
             </Button>
           </HomeFormSearch>
           <ResultWord
-            world={word?.word}
-            text={word?.text}
-            audio={word?.audio}
-            type={word?.type}
-            id={word.id}
-            phraseExample={word?.phraseExample}
+            word={wordCurrent?.word}
+            text={wordCurrent?.text}
+            audio={wordCurrent?.audio}
+            type={wordCurrent?.type}
+            id={wordCurrent.id}
+            phraseExample={wordCurrent?.phraseExample}
           />
           <WordsSection />
         </Container>

@@ -11,22 +11,20 @@ export const WordsSection = (): JSX.Element => {
 
   const [numberPageAPI, setNumberPageAPI] = useState(1);
 
-  const handleAPI = async () => {
-    const response: any = await getAPI(
-      `http://localhost:3004/words?_page=${numberPageAPI}&_limit=12`
-    );
-
-    setWords((current) => current?.concat(response.data));
-  };
-
   useEffect(() => {
+    const handleAPI = async () => {
+      const response: any = await getAPI(
+        `http://localhost:3004/words?_page=${numberPageAPI}`
+      );
+
+      setWords((prev) => [...prev, ...response.data]);
+    };
     handleAPI();
-  }, []);
+  }, [numberPageAPI]);
 
   useEffect(() => {
     let observer = new IntersectionObserver((entries) => {
       if (entries.some((entry) => entry.isIntersecting)) {
-        handleAPI();
         setNumberPageAPI((current) => current + 1);
       }
     });
@@ -36,28 +34,28 @@ export const WordsSection = (): JSX.Element => {
     observer.observe(element);
 
     return () => observer.disconnect();
-  }, []); 
+  }, []);
 
   return (
     <>
-    <WordsSectionWrapper>
-      {words?.map((word, index) => (
-        <Word
-          key={index}
-          onClick={(el) => {
-            getAPIWord(String(el.target.outerText), word.id);
-          }}
-        >
-          {word.content}
-        </Word>
-      ))}
+      <WordsSectionWrapper>
+        {words?.map((word, index) => (
+          <Word
+            key={index}
+            onClick={(el) => {
+              getAPIWord(String(el.target.outerText), word.id);
+            }}
+          >
+            {word.content}
+          </Word>
+        ))}
 
-      {Array.from({ length: 4 }).map((el, index) => (
-        <WordLoading key={index} />
-      ))}
-    </WordsSectionWrapper>
+        {Array.from({ length: 4 }).map((el, index) => (
+          <WordLoading key={index} />
+        ))}
+      </WordsSectionWrapper>
 
-<div id="loading"></div>
-</>
+      <div id="loading"></div>
+    </>
   );
 };

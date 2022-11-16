@@ -6,11 +6,12 @@ import {
 } from "./styles";
 
 import { FaHeart, FaVolumeUp } from "react-icons/fa";
-import { useContext, useEffect, useRef } from "react";
+import { useContext, useRef } from "react";
 import { FavoritesWordsContext } from "@providers/wordsProvider";
+import { useEffect } from "react";
 
 interface ResultWordProps {
-  world: string;
+  word: string;
   audio: string;
   text: string;
   type: string;
@@ -19,7 +20,7 @@ interface ResultWordProps {
 }
 
 export const ResultWord = ({
-  world,
+  word,
   text,
   audio,
   type,
@@ -28,7 +29,7 @@ export const ResultWord = ({
 }: ResultWordProps) => {
   const audioref = useRef<HTMLAudioElement>(null);
 
-  const { isLiked, favoriteAdd, handleFavorites } = useContext(
+  const { isLiked, favoriteAdd, handleFavorites, removedWordsucess } = useContext(
     FavoritesWordsContext
   );
 
@@ -36,7 +37,9 @@ export const ResultWord = ({
     audioref.current?.play();
   };
 
-  handleFavorites(identify);
+  useEffect(()=>{
+    handleFavorites(identify);
+  }, [isLiked, removedWordsucess])
 
   return (
     <ResultWordWrapper>
@@ -48,7 +51,7 @@ export const ResultWord = ({
           }}
         >
           <Text size="lg" weight="semibold">
-            {world}
+            {word}
           </Text>
           <Text>{text}</Text>
         </Flex>
@@ -63,7 +66,7 @@ export const ResultWord = ({
             like={true}
             isLiked={isLiked}
             aria-label="Like"
-            onClick={() => favoriteAdd(world, identify)}
+            onClick={() => favoriteAdd(word, identify)}
           >
             <FaHeart />
           </Button>

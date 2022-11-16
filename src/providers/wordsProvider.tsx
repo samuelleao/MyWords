@@ -22,12 +22,12 @@ interface dataAPI {
 }
 
 const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
-  const [isLiked, setIsLiked] = useState(false);
-  const [identify, setIdentify] = useState<number>(0);
+  const [isLiked, setIsLiked] = useState();
+  const [identify, setIdentify] = useState<number>();
   const [favorites, setFavorites] = useState<APIFavoritesType[]>([]);
-  const [sucess, setSucess] = useState(false);
+  const [removedWordsucess, setRemovedWordSucess] = useState(false);
 
-  const [word, setWord] = useState<dataAPI>({
+  const [wordCurrent, setWordCurrent] = useState<dataAPI>({
     word: "",
     text: "",
     audio: "",
@@ -43,8 +43,10 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
       await getAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
       setIsLiked(true);
       setIdentify(id);
+     
     } catch (error) {
       setIsLiked(false);
+      console.log("entrou");
       throw (error as Error).message;
     }
   };
@@ -75,15 +77,16 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
   const favoriteRemove = async (id: number) => {
     try {
       await deleteAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
-      setSucess(true);
+      setRemovedWordSucess(true);
       getFavorites();
     } catch (error) {
-      setSucess(false);
+      setRemovedWordSucess(false);
       throw (error as Error).message;
     }
   };
 
   const getAPIWord = async (wordWriter: string, id: any = null) => {
+    console.log(wordWriter)
     if (id == null) {
       id = Date.now() + Math.random();
     }
@@ -99,7 +102,7 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
       const { definition } = definitions[0];
       const [text, audio] = phonetics;
 
-      setWord({
+      setWordCurrent({
         word: word,
         text: text?.text,
         audio: audio?.audio,
@@ -124,14 +127,14 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
         handleFavorites,
         favoriteAdd,
         favorites,
-        sucess,
+        removedWordsucess,
+        setRemovedWordSucess,
         favoriteRemove,
         getFavorites,
         getAPIWord,
         error,
         setError,
-        word,
-        
+        wordCurrent,
       }}
     >
       {children}

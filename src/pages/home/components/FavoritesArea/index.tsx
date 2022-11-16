@@ -24,9 +24,9 @@ interface APIType {
 export const FavoritesArea = (): JSX.Element => {
   const {
     getFavorites,
-    sucess,
+    removedWordsucess,
     favorites,
-    setSucess,
+    setRemovedWordSucess,
     favoriteRemove,
     getAPIWord,
   } = useContext(FavoritesWordsContext);
@@ -34,8 +34,8 @@ export const FavoritesArea = (): JSX.Element => {
   return (
     <>
       <Toast
-        control={sucess}
-        setControl={setSucess}
+        control={removedWordsucess}
+        setControl={setRemovedWordSucess}
         title="Yes! Word Removed"
         description="Your favorite word was removed with sucess"
       />
@@ -74,9 +74,9 @@ export const FavoritesArea = (): JSX.Element => {
               {favorites.map((favoriteWord: APIType) => (
                 <FavoritesWordsListItem
                   key={favoriteWord.id}
-                  onClick={(event) =>
-                    getAPIWord(String(event.target.outerText), favoriteWord.id)
-                  }
+                  // onClick={(event) =>
+                  //   getAPIWord(String(event.target.outerText), favoriteWord.id)
+                  // }
                 >
                   <Text>{favoriteWord.content}</Text>
                   <Button
