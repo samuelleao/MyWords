@@ -11,7 +11,7 @@ export const FavoritesWordsListWrapper = styled("div", {
   overflowX: "hidden",
 });
 
-export const FavoritesWordsListItem = styled("button", {
+export const FavoritesWordsListItem = styled("div", {
   appearance: "none",
   backgroundColor: "transparent",
   border: "none",

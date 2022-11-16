@@ -41,7 +41,7 @@ export const FavoritesArea = (): JSX.Element => {
       />
       <Dialog.Root>
         <Dialog.Trigger asChild>
-          <Button onClick={getFavorites} withIcon type="grey">
+          <Button as="span" onClick={getFavorites} withIcon type="grey">
             <FaHeart />
             Favorites
           </Button>
@@ -73,6 +73,7 @@ export const FavoritesArea = (): JSX.Element => {
             <FavoritesWordsListWrapper>
               {favorites.map((favoriteWord: APIType) => (
                 <FavoritesWordsListItem
+                  tabIndex={0}
                   key={favoriteWord.id}
                   // onClick={(event) =>
                   //   getAPIWord(String(event.target.outerText), favoriteWord.id)

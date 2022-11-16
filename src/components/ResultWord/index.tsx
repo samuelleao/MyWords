@@ -51,7 +51,7 @@ export const ResultWord = ({
           }}
         >
           <Text size="lg" weight="semibold">
-            {word}
+            {word} - {identify}
           </Text>
           <Text>{text}</Text>
         </Flex>

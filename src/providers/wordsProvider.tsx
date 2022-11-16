@@ -40,9 +40,16 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
 
   const handleFavorites = async (id: number) => {
     try {
-      await getAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
-      setIsLiked(true);
+      const response = await getAPI<any>(`http://localhost:3004/wordsFavorites/${id}`);
+
+      const dataJson = response.data
       setIdentify(id);
+
+      if(dataJson.length == 0){
+        setIsLiked(false);
+      }else{
+        setIsLiked(true);
+      }
      
     } catch (error) {
       setIsLiked(false);
@@ -86,7 +93,7 @@ const FavoritesWordsProvider = ({ children }: FavoritesWordsProviderProps) => {
   };
 
   const getAPIWord = async (wordWriter: string, id: any = null) => {
-    console.log(wordWriter)
+    
     if (id == null) {
       id = Date.now() + Math.random();
     }

@@ -36,6 +36,10 @@ export const WordsSection = (): JSX.Element => {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(()=>{
+    getAPIWord("word");
+  }, [])
+
   return (
     <>
       <WordsSectionWrapper>
