@@ -100,6 +100,7 @@ export const FavoritesArea = (): JSX.Element => {
                   </Text>
                   <Button
                     css={{ backgroundColor: "transparent" }}
+                    aria-label={`Remove word ${favoriteWord.content}`}
                     onClick={(el) => {
                       favoriteRemove(favoriteWord.id).then(()=>{
                         setOpen(!open)
